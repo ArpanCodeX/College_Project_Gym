@@ -18,7 +18,7 @@ def open_signup():
             if insert_user(username, password_data):
                 messagebox.showinfo("Success", "Registration Successful!")
                 signup_window.destroy()
-                from login_ import open_login
+                from login import open_login
                 open_login()
             else:
                 messagebox.showerror("Error", "Username already exists.")
@@ -43,7 +43,7 @@ def open_signup():
 
     def switch_to_login():
         signup_window.destroy()
-        from login_ import open_login
+        from login import open_login
         open_login()
 
     img = PhotoImage(file="login.png")

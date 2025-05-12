@@ -83,5 +83,3 @@ def open_dashboard():
     dash.geometry("400x300")
     dash.title("Dashboard")
     Label(dash, text="Welcome to Gym Dashboard!", font=("Arial", 20)).pack(pady=40)
-
-open_login()
