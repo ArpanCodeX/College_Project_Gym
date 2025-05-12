@@ -1,5 +1,26 @@
+# login.py
 from tkinter import *
 from tkinter import messagebox
+from connection_db import check_user
+from sign_up import open_signup  # Importing the sign-up window
+
+def call():
+    new = str(user.get())
+    passData = str(password.get())
+
+    if new == "Username" or passData == "Password":
+        if new == "Username":
+            messagebox.showerror("Error", "Invalid Username")
+        elif passData == "Password":
+            messagebox.showerror("Error", "Invalid Password")
+    else:
+        result = check_user(new, passData)
+        if result:
+            messagebox.showinfo("Success", f"Welcome {new}!")
+            root.withdraw()
+            open_dashboard()  # Proceed to dashboard
+        else:
+            messagebox.showerror("Error", "Incorrect Username or Password")
 
 def open_dashboard():
     dashboard = Toplevel()
@@ -9,22 +30,6 @@ def open_dashboard():
 
     Label(dashboard, text="Welcome to the Gym Dashboard!", font=("Arial", 20, "bold"), bg="#f0f0f0", fg="#333").pack(pady=40)
     Label(dashboard, text="Add here", font=("Arial", 14), bg="#f0f0f0").pack(pady=10)
-
-def call():
-    
-    new = str(user.get())
-    passData = str(password.get())
-    if new == "Username" or passData == "Password":
-        if new == "Username":
-            messagebox.showerror("Showerror", "Invalid Username")
-        elif passData == "Password":
-            messagebox.showerror("Showerror", "Invalid Password")
-    elif new == "admin" and passData == "admin123":  # Example valid credentials
-        messagebox.showinfo("Success", f"Welcome {new}!")
-        root.withdraw()  # Hide login window
-        open_dashboard()
-    else:
-        messagebox.showerror("Error", "Incorrect Username or Password")
 
 def enter(event):
     if user.get() == "Username":
@@ -50,7 +55,7 @@ root.configure(bg="#fff")
 root.geometry("925x500+300+200")
 root.resizable(False, False)
 
-img = PhotoImage(file="login.png")  # Make sure this image exists
+img = PhotoImage(file="login.png")  # Ensure this image exists
 lbl = Label(root, image=img, bg="#ffffff")
 lbl.place(x=50, y=50)
 
@@ -82,7 +87,7 @@ Button(frame, text="Sign in", width=42, pady=7, bg="#57a2f8", fg="#fff",
 lable = Label(frame, text="Don't have an account?", fg="#000", bg="#fff", font=("Microsoft YaHei UI Light", 9))
 lable.place(x=75, y=270)
 
-sign_up = Button(frame, text="Sign Up", bg="#fff", fg="#57a1f8", cursor="hand2", border=0)
+sign_up = Button(frame, text="Sign Up", bg="#fff", fg="#57a1f8", cursor="hand2", border=0, command=lambda: open_signup(root))
 sign_up.place(x=215, y=270)
 
 root.mainloop()
