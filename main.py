@@ -8,9 +8,10 @@ def open_dashboard():
     dashboard.config(bg="#f0f0f0")
 
     Label(dashboard, text="Welcome to the Gym Dashboard!", font=("Arial", 20, "bold"), bg="#f0f0f0", fg="#333").pack(pady=40)
-    Label(dashboard, text="You can add your Gym features here.", font=("Arial", 14), bg="#f0f0f0").pack(pady=10)
+    Label(dashboard, text="Add here", font=("Arial", 14), bg="#f0f0f0").pack(pady=10)
 
 def call():
+    
     new = str(user.get())
     passData = str(password.get())
     if new == "Username" or passData == "Password":
