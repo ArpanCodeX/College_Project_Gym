@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from connection_db import check_user
+from dashboard import create_exercise_section
 
 def open_login():
     login_window = Tk()

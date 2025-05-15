@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from connection_db import insert_user
+from login import open_login
 
 def open_signup():
     signup_window = Tk()
@@ -18,10 +19,10 @@ def open_signup():
             if insert_user(username, password_data):
                 messagebox.showinfo("Success", "Registration Successful!")
                 signup_window.destroy()
-                from login import open_login
                 open_login()
             else:
-                messagebox.showerror("Error", "Username already exists.")
+                messagebox.showerror("Error", "Something went wrong. Try again.")
+
 
     def enter(event):
         if user.get() == "Username":
