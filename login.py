@@ -4,7 +4,7 @@ from connection_db import check_user
 from dashboard import create_exercise_section
 
 def open_login():
-    login_window = Tk()
+    login_window = Toplevel()
     login_window.title("Login Page")
     login_window.geometry("925x500+300+200")
     login_window.configure(bg="#fff")
@@ -79,11 +79,6 @@ def open_login():
 
     login_window.mainloop()
 
-# def open_dashboard():
-#     dash = Toplevel()
-#     dash.geometry("600x800")
-#     dash.title("Dashboard")
-#     Label(dash, text="Welcome to Gym Dashboard!", font=("Arial", 20)).pack(pady=40)
 
 def open_dashboard():
     dash = Toplevel()

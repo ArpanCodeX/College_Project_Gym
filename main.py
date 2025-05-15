@@ -1,2 +1,9 @@
-import login as lg
-lg.open_login()
+from tkinter import Tk
+from login import open_login
+
+root = Tk()
+root.withdraw()  
+
+open_login()     
+
+root.mainloop()

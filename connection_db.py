@@ -1,4 +1,3 @@
-# db.py
 import mysql.connector
 
 def get_connection():
@@ -18,8 +17,13 @@ def check_user(username, password):
     return result
 
 def insert_user(username, password):
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO users (name, password, create_time) VALUES (%s, %s, NOW())", (username, password))
-    conn.commit()
-    conn.close()
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO users (name, password, create_time) VALUES (%s, %s, NOW())", (username, password))
+        conn.commit()
+        conn.close()
+        return True  # <-- Return True on success
+    except mysql.connector.Error as err:
+        print(f"Error inserting user: {err}")
+        return False  # <-- Return False on failure

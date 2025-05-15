@@ -4,7 +4,7 @@ from connection_db import insert_user
 from login import open_login
 
 def open_signup():
-    signup_window = Tk()
+    signup_window = Toplevel()
     signup_window.title("Sign Up Page")
     signup_window.geometry("925x500+300+200")
     signup_window.configure(bg="#fff")
