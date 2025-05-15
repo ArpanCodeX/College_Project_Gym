@@ -78,8 +78,25 @@ def open_login():
 
     login_window.mainloop()
 
+# def open_dashboard():
+#     dash = Toplevel()
+#     dash.geometry("600x800")
+#     dash.title("Dashboard")
+#     Label(dash, text="Welcome to Gym Dashboard!", font=("Arial", 20)).pack(pady=40)
+
 def open_dashboard():
     dash = Toplevel()
-    dash.geometry("400x300")
-    dash.title("Dashboard")
-    Label(dash, text="Welcome to Gym Dashboard!", font=("Arial", 20)).pack(pady=40)
+    dash.geometry("900x600")
+    dash.title("Gym Management Dashboard")
+    dash.configure(bg="light green") 
+ 
+ 
+    title = Label(dash, text="🏋️‍♂️ Welcome to Gym Dashboard 🏋️‍♀️", font=("Helvetica", 24, "bold"), bg="#f0f4f7", fg="#333")
+    title.pack(pady=30)
+
+     
+    content_frame = Frame(dash, bg="white", bd=2, relief="ridge")
+    content_frame.pack(fill="both", expand=True, padx=30, pady=20)
+
+    
+    create_exercise_section(content_frame)
