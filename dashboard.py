@@ -1,3 +1,55 @@
+# import tkinter as tk
+
+# def create_exercise_section(parent):
+#     exercise_data = {
+#         "Biceps": ["Barbell Curl", "Dumbbell Curl", "Hammer Curl"],
+#         "Triceps": ["Tricep Dips", "Overhead Extension", "Tricep Pushdown"],
+#         "Chest": ["Bench Press", "Push-ups", "Chest Fly"],
+#         "Shoulder": ["Shoulder Press", "Lateral Raise", "Front Raise"],
+#         "Back": ["Pull-ups", "Deadlift", "Bent-over Row"],
+#         "Leg": ["Squats", "Lunges", "High Knees", "Jumping Jacks", "Crawling"],
+#         "Cardio": ["Running", "Cycling", "Jump Rope"],
+#         "Abs": ["Crunches", "Planks", "Leg Raises"]
+#     }
+
+#     labels = {}
+
+#     def toggle_exercises(selected_muscle):
+#         for muscle, lbl in labels.items():
+#             if muscle == selected_muscle:
+#                 if lbl.winfo_viewable():
+#                     lbl.grid_remove()  # Hide if already visible
+#                 else:
+#                     lbl.grid()         # Show selected
+#             else:
+#                 lbl.grid_remove()     # Hide all others
+
+#     row_index = 0
+#     for muscle, exercises in exercise_data.items():
+#         btn = tk.Button(parent, text=muscle, font=("Arial", 14, "bold"),
+#                         bg="#57a1f8", fg="white", padx=10, pady=5, bd=0,
+#                         command=lambda m=muscle: toggle_exercises(m))
+#         btn.grid(row=row_index, column=0, sticky="w", padx=20, pady=10)
+
+#         lbl = tk.Label(parent, text="\n".join(exercises), justify="left",
+#                        font=("Arial", 12), bg="white", fg="#333")
+#         lbl.grid(row=row_index, column=1, sticky="w", padx=20, pady=10)
+#         lbl.grid_remove()
+
+#         labels[muscle] = lbl
+#         row_index += 1
+
+# # Optional: for standalone testing
+# def open_main_window():
+#     root = tk.Tk()
+#     root.title("Gym Management")
+#     root.geometry("700x600")
+#     root.configure(bg="white")
+
+#     create_exercise_section(root)
+
+#     root.mainloop()
+
 import tkinter as tk
 
 def create_exercise_section(parent):
@@ -14,39 +66,85 @@ def create_exercise_section(parent):
 
     labels = {}
 
-    # ✅ Define toggle_exercises BEFORE using it
-    def toggle_exercises(muscle):
-        lbl = labels[muscle]
-        if lbl.winfo_viewable():
-            lbl.grid_remove()
-        else:
-            lbl.grid()
+    def toggle_exercises(selected_muscle):
+        for muscle, lbl in labels.items():
+            if muscle == selected_muscle:
+                if lbl.winfo_viewable():
+                    lbl.grid_remove()
+                else:
+                    lbl.grid()
+            else:
+                lbl.grid_remove()
 
     row_index = 0
     for muscle, exercises in exercise_data.items():
-        btn = tk.Button(parent, text=muscle, font=("Arial", 14, "bold"),
-                        bg="#57a1f8", fg="white", padx=10, pady=5, bd=0,
-                        command=lambda m=muscle: toggle_exercises(m))
-        btn.grid(row=row_index, column=0, sticky="w", padx=20, pady=10)
+        btn = tk.Button(
+            parent,
+            text=muscle,
+            font=("Arial", 14, "bold"),
+            bg="#57a1f8",
+            fg="white",
+            padx=10,
+            pady=5,
+            bd=0,
+            command=lambda m=muscle: toggle_exercises(m)
+        )
+        btn.grid(row=row_index, column=0, sticky="w", padx=20, pady=5)
 
-        lbl = tk.Label(parent, text="\n".join(exercises), justify="left",
-                       font=("Arial", 12), bg="white", fg="#333")
-        lbl.grid(row=row_index, column=1, sticky="w", padx=20, pady=10)
+        exercise_text = "\n".join(f"✓ {ex}" for ex in exercises)
+        lbl = tk.Label(
+            parent,
+            text=exercise_text,
+            justify="left",
+            font=("Arial", 12),
+            bg="white",
+            fg="#333"
+        )
+        lbl.grid(row=row_index, column=1, sticky="w", padx=20, pady=5)
         lbl.grid_remove()
 
         labels[muscle] = lbl
         row_index += 1
 
-# Optional: for standalone testing
+    # Add spacing below last item so buttons don't overlap
+    spacer = tk.Label(parent, text="", bg="white")
+    spacer.grid(row=row_index, column=0, columnspan=2, pady=10)
+
+    # Bottom button frame
+    button_frame = tk.Frame(parent, bg="white")
+    button_frame.grid(row=row_index+1, column=0, columnspan=2, pady=30)
+
+    logout_btn = tk.Button(
+        button_frame,
+        text="Logout",
+        font=("Arial", 12, "bold"),
+        bg="#f0ad4e",
+        fg="white",
+        padx=20,
+        pady=5
+    )
+    logout_btn.pack(side="left", padx=20)
+
+    exit_btn = tk.Button(
+        button_frame,
+        text="Exit",
+        font=("Arial", 12, "bold"),
+        bg="#d9534f",
+        fg="white",
+        padx=20,
+        pady=5
+    )
+    exit_btn.pack(side="left", padx=20)
+
+
+# Run the main window
 def open_main_window():
     root = tk.Tk()
     root.title("Gym Management")
-    root.geometry("700x600")
+    root.geometry("700x650")
     root.configure(bg="white")
 
     create_exercise_section(root)
 
     root.mainloop()
 
-# Uncomment this only for direct run testing
-# open_main_window()
