@@ -54,11 +54,9 @@ def create_exercise_section(parent):
         labels[muscle] = lbl
         row_index += 1
 
-    # Add spacing below last item so buttons don't overlap
     spacer = tk.Label(parent, text="", bg="white")
     spacer.grid(row=row_index, column=0, columnspan=2, pady=10)
 
-    # Bottom button frame
     button_frame = tk.Frame(parent, bg="white")
     button_frame.grid(row=row_index+1, column=0, columnspan=2, pady=30)
 
@@ -76,7 +74,6 @@ def create_exercise_section(parent):
 
 
 
-# Run the main window
 def open_main_window():
     root = tk.Tk()
     root.title("Gym Management")

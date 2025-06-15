@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import mysql.connector
 
-# Connect to MySQL
+
 def connect_db():
     return mysql.connector.connect(
         host="localhost",
@@ -11,7 +11,6 @@ def connect_db():
         database="gymDB_1"
     )
 
-# (Optional) Show table columns to debug structure
 def show_table_columns():
     conn = connect_db()
     cursor = conn.cursor()
@@ -21,7 +20,6 @@ def show_table_columns():
         print(row)
     conn.close()
 
-# Get all users (excluding admin)
 def get_all_users():
     conn = connect_db()
     cursor = conn.cursor()
@@ -30,7 +28,6 @@ def get_all_users():
     conn.close()
     return users
 
-# Delete a user
 def delete_user_from_db(name):
     conn = connect_db()
     cursor = conn.cursor()
@@ -38,7 +35,7 @@ def delete_user_from_db(name):
     conn.commit()
     conn.close()
 
-# Admin dashboard
+
 def show_admin_dashboard():
     def delete_user(name):
         delete_user_from_db(name)
@@ -64,7 +61,7 @@ def show_admin_dashboard():
 
         tk.Label(frame, text=name, font=("Arial", 12), bg="white").pack(side="left")
         tk.Button(frame, text="Delete", bg="#d9534f", fg="white",
-                  command=lambda n=name: delete_user(n)).pack(side="left", padx=10)
+                    command=lambda n=name: delete_user(n)).pack(side="left", padx=10)
 
     tk.Button(dashboard, text="Exit", command=dashboard.destroy, bg="gray", fg="white", font=("Arial", 12)).pack(pady=20)
 
