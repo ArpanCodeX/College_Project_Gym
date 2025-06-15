@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from connection_db import check_user
 from dashboard import create_exercise_section
-
+from admin import show_admin_dashboard
 def open_login():
     login_window = Toplevel()
     login_window.title("Login Page")
@@ -13,15 +13,30 @@ def open_login():
     def call():
         username = user.get()
         password_data = password.get()
-        if username == "Username" or password_data == "Password":
+
+        if username == "admin" and password_data == "0000":
+            login_window.destroy()
+            show_admin_dashboard()
+
+        elif username == "Username" or password_data == "Password":
             messagebox.showerror("Error", "Please fill in all fields.")
+
         else:
-            if check_user(username, password_data):
+            result = check_user(username, password_data)
+            if result == "success":
                 messagebox.showinfo("Success", f"Welcome {username}!")
                 login_window.destroy()
                 open_dashboard()
+            elif result == "wrong_password":
+                messagebox.showerror("Error", "Incorrect password.")
+            elif result == "not_found":
+                messagebox.showerror("Error", "User does not exist.")
+            elif result.startswith("error::"):
+                error_msg = result.split("::", 1)[1]
+                messagebox.showerror("Database Error", error_msg)
             else:
-                messagebox.showerror("Error", "Incorrect Username or Password")
+                messagebox.showerror("Error", "Unknown login error occurred.")
+
 
     def enter(event):
         if user.get() == "Username":
@@ -90,7 +105,7 @@ def open_dashboard():
     title = Label(dash, text="🏋️‍♂️ Welcome to Gym Dashboard 🏋️‍♀️", font=("Helvetica", 24, "bold"), bg="#f0f4f7", fg="#333")
     title.pack(pady=30)
 
-     
+
     content_frame = Frame(dash, bg="white", bd=2, relief="ridge")
     content_frame.pack(fill="both", expand=True, padx=30, pady=20)
 
