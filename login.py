@@ -3,12 +3,12 @@ from tkinter import messagebox
 from connection_db import check_user
 from dashboard import create_exercise_section
 from admin import show_admin_dashboard
+
 def open_login():
     login_window = Toplevel()
     login_window.title("Login Page")
-    login_window.geometry("925x500+300+200")
+    login_window.state('zoomed')
     login_window.configure(bg="#fff")
-    login_window.resizable(False, False)
 
     def call():
         username = user.get()
@@ -17,10 +17,8 @@ def open_login():
         if username == "admin" and password_data == "0000":
             login_window.destroy()
             show_admin_dashboard()
-
         elif username == "Username" or password_data == "Password":
             messagebox.showerror("Error", "Please fill in all fields.")
-
         else:
             result = check_user(username, password_data)
             if result == "success":
@@ -33,7 +31,6 @@ def open_login():
                 messagebox.showerror("Error", "User does not exist.")
             else:
                 messagebox.showerror("Error", "Unknown login error occurred.")
-
 
     def enter(event):
         if user.get() == "Username":
@@ -58,53 +55,71 @@ def open_login():
         from sign_up import open_signup
         open_signup()
 
+    main_content_frame = Frame(login_window, bg="white")
+    main_content_frame.pack(expand=True, fill="both")
+
     img = PhotoImage(file="login.png")
-    Label(login_window, image=img, bg="white").place(x=50, y=50)
+    img_label = Label(main_content_frame, image=img, bg="white")
+    img_label.pack(side="left", padx=20, pady=20)
 
-    frame = Frame(login_window, width=350, height=350, bg="white")
-    frame.place(x=480, y=70)
+    form_frame = Frame(main_content_frame, width=380, height=380, bg="white")
+    form_frame.pack(side="left", expand=True, fill="both", padx=200, pady=120)
 
-    heading = Label(frame, text="GYM", fg="#57a1f8", bg="white", font=("Microsoft YaHei UI Light", 23, "bold"))
-    heading.place(x=100, y=5)
+    form_frame.grid_rowconfigure(0, weight=1)
+    form_frame.grid_rowconfigure(1, weight=1)
+    form_frame.grid_rowconfigure(2, weight=0)
+    form_frame.grid_rowconfigure(3, weight=1)
+    form_frame.grid_rowconfigure(4, weight=0)
+    form_frame.grid_rowconfigure(5, weight=1)
+    form_frame.grid_rowconfigure(6, weight=1)
+    form_frame.grid_columnconfigure(0, weight=1)
 
-    user = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 11))
-    user.place(x=30, y=80)
+    heading = Label(form_frame, text="GYM", fg="#57a1f8", bg="white", font=("Microsoft YaHei UI Light", 28, "bold"))
+    heading.grid(row=0, column=0, pady=(20, 0), sticky="n")
+
+    user = Entry(form_frame, width=40, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 14))
+    user.grid(row=1, column=0, pady=(30, 0), padx=50, sticky="ew")
     user.insert(0, "Username")
     user.bind("<FocusIn>", enter)
     user.bind("<FocusOut>", leave)
 
-    Frame(frame, width=295, height=2, bg="black").place(x=25, y=107)
+    Frame(form_frame, width=350, height=2, bg="black").grid(row=2, column=0, padx=45, sticky="ew")
 
-    password = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 11))
-    password.place(x=30, y=150)
+    password = Entry(form_frame, width=40, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 14))
+    password.grid(row=3, column=0, pady=(30, 0), padx=50, sticky="ew")
     password.insert(0, "Password")
     password.bind("<FocusIn>", enterP)
     password.bind("<FocusOut>", leaveP)
 
-    Frame(frame, width=295, height=2, bg="black").place(x=25, y=177)
+    Frame(form_frame, width=350, height=2, bg="black").grid(row=4, column=0, padx=45, sticky="ew")
 
-    Button(frame, width=39, pady=7, text="Sign In", bg="#57a1f8", fg="white", border=0, command=call).place(x=35, y=204)
+    Button(form_frame, width=45, pady=10, text="Sign In", bg="#57a1f8", fg="white", border=0, command=call).grid(row=5, column=0, pady=30, padx=50, sticky="ew")
 
-    Label(frame, text="Don't have an account?", fg="black", bg="white", font=("Microsoft YaHei UI Light", 9)).place(x=75, y=270)
+    bottom_links_frame = Frame(form_frame, bg="white")
+    bottom_links_frame.grid(row=6, column=0, pady=10, sticky="n")
 
-    Button(frame, width=6, text="Sign Up", border=0, bg="white", cursor="hand2", fg="#57a1f8", command=switch_to_signup).place(x=215, y=270)
+    Label(bottom_links_frame, text="Don't have an account?", fg="black", bg="white", font=("Microsoft YaHei UI Light", 10)).pack(side="left")
+    Button(bottom_links_frame, width=8, text="Sign Up", border=0, bg="white", cursor="hand2", fg="#57a1f8", command=switch_to_signup).pack(side="left", padx=5)
 
     login_window.mainloop()
 
-
 def open_dashboard():
     dash = Toplevel()
-    dash.geometry("900x600")
+    dash.state('zoomed')
     dash.title("Gym Management Dashboard")
-    dash.configure(bg="light green") 
- 
- 
+    dash.configure(bg="light green")
+
     title = Label(dash, text="🏋️‍♂️ Welcome to Gym Dashboard 🏋️‍♀️", font=("Helvetica", 24, "bold"), bg="#f0f4f7", fg="#333")
     title.pack(pady=30)
-
 
     content_frame = Frame(dash, bg="white", bd=2, relief="ridge")
     content_frame.pack(fill="both", expand=True, padx=30, pady=20)
 
-    
+    content_frame.grid_columnconfigure(0, weight=1)
+    content_frame.grid_columnconfigure(1, weight=2)
+    for i in range(8):
+        content_frame.grid_rowconfigure(i, weight=1)
+
     create_exercise_section(content_frame)
+
+    content_frame.grid_rowconfigure(len(content_frame.winfo_children()) - 1, weight=0)

@@ -6,9 +6,8 @@ from login import open_login
 def open_signup():
     signup_window = Toplevel()
     signup_window.title("Sign Up Page")
-    signup_window.geometry("925x500+300+200")
+    signup_window.state('zoomed')
     signup_window.configure(bg="#fff")
-    signup_window.resizable(False, False)
 
     def register():
         username = user.get()
@@ -22,7 +21,6 @@ def open_signup():
                 open_login()
             else:
                 messagebox.showerror("Error", "Something went wrong. Try again.")
-
 
     def enter(event):
         if user.get() == "Username":
@@ -47,35 +45,52 @@ def open_signup():
         from login import open_login
         open_login()
 
+    main_content_frame = Frame(signup_window, bg="white")
+    main_content_frame.pack(expand=True, fill="both")
+
     img = PhotoImage(file="login.png")
-    Label(signup_window, image=img, bg="white").place(x=50, y=50)
+    img_label = Label(main_content_frame, image=img, bg="white")
+    img_label.pack(side="left", padx=20, pady=20)
 
-    frame = Frame(signup_window, width=350, height=350, bg="white")
-    frame.place(x=480, y=70)
+    
+    form_frame = Frame(main_content_frame, width=380, height=380, bg="white") 
+    form_frame.pack(side="left", expand=True, fill="both", padx=200, pady=120) 
 
-    heading = Label(frame, text="Sign Up", fg="#57a1f8", bg="white", font=("Microsoft YaHei UI Light", 23, "bold"))
-    heading.place(x=100, y=5)
+    form_frame.grid_rowconfigure(0, weight=1)
+    form_frame.grid_rowconfigure(1, weight=1)
+    form_frame.grid_rowconfigure(2, weight=0)
+    form_frame.grid_rowconfigure(3, weight=1)
+    form_frame.grid_rowconfigure(4, weight=0)
+    form_frame.grid_rowconfigure(5, weight=1)
+    form_frame.grid_rowconfigure(6, weight=1)
+    form_frame.grid_columnconfigure(0, weight=1)
 
-    user = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 11))
-    user.place(x=30, y=80)
+    heading = Label(form_frame, text="Sign Up", fg="#57a1f8", bg="white", font=("Microsoft YaHei UI Light", 28, "bold"))
+    heading.grid(row=0, column=0, pady=(20, 0), sticky="n")
+
+    user = Entry(form_frame, width=40, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 14))
+    user.grid(row=1, column=0, pady=(30, 0), padx=50, sticky="ew")
     user.insert(0, "Username")
     user.bind("<FocusIn>", enter)
     user.bind("<FocusOut>", leave)
 
-    Frame(frame, width=295, height=2, bg="black").place(x=25, y=107)
+    Frame(form_frame, width=350, height=2, bg="black").grid(row=2, column=0, padx=45, sticky="ew")
 
-    password = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 11))
-    password.place(x=30, y=150)
+    password = Entry(form_frame, width=40, fg="black", border=0, bg="white", font=("Microsoft YaHei UI Light", 14))
+    password.grid(row=3, column=0, pady=(30, 0), padx=50, sticky="ew")
     password.insert(0, "Password")
     password.bind("<FocusIn>", enterP)
     password.bind("<FocusOut>", leaveP)
 
-    Frame(frame, width=295, height=2, bg="black").place(x=25, y=177)
+    Frame(form_frame, width=350, height=2, bg="black").grid(row=4, column=0, padx=45, sticky="ew")
 
-    Button(frame, width=39, pady=7, text="Sign Up", bg="#57a1f8", fg="white", border=0, command=register).place(x=35, y=204)
+    Button(form_frame, width=45, pady=10, text="Sign Up", bg="#57a1f8", fg="white", border=0, command=register).grid(row=5, column=0, pady=30, padx=50, sticky="ew")
 
-    Label(frame, text="Already have an account?", fg="black", bg="white", font=("Microsoft YaHei UI Light", 9)).place(x=65, y=270)
+    bottom_links_frame = Frame(form_frame, bg="white")
+    bottom_links_frame.grid(row=6, column=0, pady=10, sticky="n")
 
-    Button(frame, width=6, text="Login", border=0, bg="white", cursor="hand2", fg="#57a1f8", command=switch_to_login).place(x=215, y=270)
+    Label(bottom_links_frame, text="Already have an account?", fg="black", bg="white", font=("Microsoft YaHei UI Light", 10)).pack(side="left")
+
+    Button(bottom_links_frame, width=8, text="Login", border=0, bg="white", cursor="hand2", fg="#57a1f8", command=switch_to_login).pack(side="left", padx=5)
 
     signup_window.mainloop()
