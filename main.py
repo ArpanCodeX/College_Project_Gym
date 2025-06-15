@@ -4,6 +4,6 @@ from login import open_login
 root = Tk()
 root.withdraw()  
 
-open_login()     
+open_login()
 
 root.mainloop()

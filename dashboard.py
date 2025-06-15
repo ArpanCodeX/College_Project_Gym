@@ -72,8 +72,6 @@ def create_exercise_section(parent):
     )
     btn.pack(side="left", padx=20)
 
-
-
 def open_main_window():
     root = tk.Tk()
     root.title("Gym Management")
