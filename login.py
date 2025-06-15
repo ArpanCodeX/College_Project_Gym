@@ -31,9 +31,6 @@ def open_login():
                 messagebox.showerror("Error", "Incorrect password.")
             elif result == "not_found":
                 messagebox.showerror("Error", "User does not exist.")
-            elif result.startswith("error::"):
-                error_msg = result.split("::", 1)[1]
-                messagebox.showerror("Database Error", error_msg)
             else:
                 messagebox.showerror("Error", "Unknown login error occurred.")
 
