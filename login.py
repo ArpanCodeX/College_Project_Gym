@@ -107,7 +107,7 @@ def open_dashboard():
     dash = Toplevel()
     dash.state('zoomed')
     dash.title("Gym Management Dashboard")
-    dash.configure(bg="green")
+    dash.configure(bg="#22dedb")
 
     title = Label(dash, text="🏋️‍♂️ Welcome to Gym Dashboard 🏋️‍♀️", font=("Helvetica", 24, "bold"), bg="#f0f4f7", fg="#333")
     title.pack(pady=20)
