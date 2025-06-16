@@ -107,19 +107,27 @@ def open_dashboard():
     dash = Toplevel()
     dash.state('zoomed')
     dash.title("Gym Management Dashboard")
-    dash.configure(bg="light green")
+    dash.configure(bg="green")
 
     title = Label(dash, text="🏋️‍♂️ Welcome to Gym Dashboard 🏋️‍♀️", font=("Helvetica", 24, "bold"), bg="#f0f4f7", fg="#333")
-    title.pack(pady=30)
+    title.pack(pady=20)
 
-    content_frame = Frame(dash, bg="white", bd=2, relief="ridge")
-    content_frame.pack(fill="both", expand=True, padx=30, pady=20)
+    exercise_section_frame = Frame(dash, bg="white", bd=2, relief="ridge")
+    exercise_section_frame.pack(expand=True, fill="both", padx=50, pady=20)
 
-    content_frame.grid_columnconfigure(0, weight=1)
-    content_frame.grid_columnconfigure(1, weight=2)
-    for i in range(8):
-        content_frame.grid_rowconfigure(i, weight=1)
+    create_exercise_section(exercise_section_frame)
 
-    create_exercise_section(content_frame)
+    exit_btn = Button(
+        dash,
+        text="Exit",
+        command=dash.destroy,
+        font=("Arial", 16, "bold"),
+        bg="#dc3545",
+        fg="white",
+        padx=25,
+        pady=12,
+        relief="raised"
+    )
+    exit_btn.pack(pady=30)
 
-    content_frame.grid_rowconfigure(len(content_frame.winfo_children()) - 1, weight=0)
+    dash.mainloop()
