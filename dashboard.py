@@ -1,4 +1,4 @@
-import tkinter as tk 
+import tkinter as tk
 
 def create_exercise_section(parent):
     exercise_data = {
@@ -11,6 +11,10 @@ def create_exercise_section(parent):
         "Cardio": ["Running", "Cycling", "Jump Rope"],
         "Abs": ["Crunches", "Planks", "Leg Raises"]
     }
+
+    
+    parent.grid_columnconfigure(0, weight=1) 
+    parent.grid_columnconfigure(1, weight=2) 
 
     labels = {}
 
@@ -41,11 +45,11 @@ def create_exercise_section(parent):
 
         exercise_text = "\n".join(f"> {ex}" for ex in exercises)
         lbl = tk.Label(
-            parent,
+            parent, 
             text=exercise_text,
             justify="left",
             font=("Arial", 12),
-            bg="white",
+            bg="#ffffff",
             fg="#333"
         )
         lbl.grid(row=row_index, column=1, sticky="w", padx=20, pady=5)
@@ -53,31 +57,3 @@ def create_exercise_section(parent):
 
         labels[muscle] = lbl
         row_index += 1
-
-    spacer = tk.Label(parent, text="", bg="white")
-    spacer.grid(row=row_index, column=0, columnspan=2, pady=10)
-
-    button_frame = tk.Frame(parent, bg="white")
-    button_frame.grid(row=row_index+1, column=0, columnspan=2, pady=30)
-
-    btn = tk.Button(
-        button_frame,
-        text="Exit",
-        font=("Arial", 12, "bold"),
-        bg="#dd0000",
-        fg="white",
-        padx=20,
-        pady=5,
-        command=parent.quit
-    )
-    btn.pack(side="left", padx=20)
-
-def open_main_window():
-    root = tk.Tk()
-    root.title("Gym Management")
-    root.geometry("925x500+300+200")
-    root.configure(bg="white")
-
-    create_exercise_section(root)
-
-    root.mainloop()
